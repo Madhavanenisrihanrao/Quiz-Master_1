@@ -12,6 +12,9 @@
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
     "isbot": "^5.1.27",
+    "lucide-react": "^0.544.0",
+    "mongodb": "^6.20.0",
+    "qrcode.react": "^4.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.7.1"

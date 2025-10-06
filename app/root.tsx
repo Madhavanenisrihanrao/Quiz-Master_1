@@ -24,6 +24,10 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const isServer = typeof document === 'undefined';
+  const apiBaseJson = isServer ? JSON.stringify(process.env.API_BASE || "") : '""';
+  const inlineScript = isServer ? `window.__API_BASE__ = ${apiBaseJson};` : '';
+
   return (
     <html lang="en">
       <head>
@@ -35,6 +39,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
+        {/* Inject API base URL for client-side fetches; resolved at SSR runtime */}
+        {inlineScript ? (
+          <script
+            // Note: this runs on the server during SSR and embeds the value into HTML
+            dangerouslySetInnerHTML={{ __html: inlineScript }}
+          />
+        ) : null}
         <Scripts />
       </body>
     </html>
